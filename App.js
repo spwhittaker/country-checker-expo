@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, ScrollView, StatusBar, SafeAreaView } from "react-native";
-import localCountryData from "./src/countryData";
-import colourData from "../country-checker-expo/src/colourData";
-import { defaultSearch, nameSearch } from "./src/utils/API";
+import {
+  Text,
+  View,
+  ScrollView,
+  StatusBar,
+  SafeAreaView,
+  FlatList,
+} from "react-native";
+import countryDataWithAllNames from "./src/countryData";
+
 import { Searchbar } from "react-native-paper";
 import styled, { ThemeProvider } from "styled-components/native";
 import theme from "./src/infrastructure/theme/index";
 import { CountryList } from "./src/Components/CountryList";
+import { deburr } from "lodash";
+
 const StyledSafeArea = styled.SafeAreaView`
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
   flex: 1;
@@ -18,9 +26,24 @@ const SearchContainer = styled.View`
 `;
 
 export default function App() {
-  const onChangeSearch = (query) => setSearchQuery(query);
+  const [countryData, setCountryData] = useState(countryDataWithAllNames);
   const [searchQuery, setSearchQuery] = useState("");
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
+  };
 
+  useEffect(() => {
+    const searchText = deburr(searchQuery).toLowerCase();
+    const filteredList = countryDataWithAllNames.filter((country) => {
+      if (searchQuery === "") {
+        return true;
+      }
+
+      return country.deburredAllNames.includes(searchText);
+    });
+
+    return setCountryData(filteredList);
+  }, [searchQuery]);
   return (
     <ThemeProvider theme={theme}>
       <StyledSafeArea>
@@ -31,45 +54,9 @@ export default function App() {
             value={searchQuery}
           />
         </SearchContainer>
+        {/* TODO Change this to FlatList */}
         <ScrollView>
-          <CountryList></CountryList>
-          <Text>Lorem, ipsum dolor.</Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, ea.
-          </Text>
+          <CountryList countryData={countryData}></CountryList>
         </ScrollView>
       </StyledSafeArea>
     </ThemeProvider>
