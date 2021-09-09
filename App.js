@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   FlatList,
 } from "react-native";
-import countryDataWithAllNames from "./src/countryData";
+import { countryDataWithAllNames } from "./src/countryDataTransform";
 
 import { Searchbar } from "react-native-paper";
 import styled, { ThemeProvider } from "styled-components/native";

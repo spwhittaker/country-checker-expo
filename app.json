@@ -2,13 +2,13 @@
   "expo": {
     "name": "country-checker",
     "slug": "country-checker",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#bbd3bd"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,7 +17,15 @@
     "ios": {
       "supportsTablet": true
     },
-    "android": { "package": "com.swhittaker.countrychecker", "versionCode": 1 },
+    "android": {
+      "permissions": [],
+      "package": "com.swhittaker.countrychecker",
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#bbd3bd"
+      }
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     }
