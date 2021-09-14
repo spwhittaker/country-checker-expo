@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  ScrollView,
-  StatusBar,
-  SafeAreaView,
-  FlatList,
-} from "react-native";
-import countryDataWithAllNames from "./src/countryData";
+import { StatusBar } from "react-native";
+import { countryDataWithAllNames } from "./src/countryDataTransform";
 
 import { Searchbar } from "react-native-paper";
 import styled, { ThemeProvider } from "styled-components/native";
 import theme from "./src/infrastructure/theme/index";
-import { CountryList } from "./src/Components/CountryList";
+import { CountryFlatList } from "./src/Components/CountryFlatList";
 import { deburr } from "lodash";
 
 const StyledSafeArea = styled.SafeAreaView`
@@ -54,10 +47,8 @@ export default function App() {
             value={searchQuery}
           />
         </SearchContainer>
-        {/* TODO Change this to FlatList */}
-        <ScrollView>
-          <CountryList countryData={countryData}></CountryList>
-        </ScrollView>
+
+        <CountryFlatList countryData={countryData} />
       </StyledSafeArea>
     </ThemeProvider>
   );

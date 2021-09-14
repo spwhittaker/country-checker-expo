@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import React from "react";
+import { FlatList } from "react-native";
 import { Dimensions } from "react-native";
 import { cardSize } from "../countryDataTransform";
 const windowWidth = Dimensions.get("window").width;
@@ -51,36 +52,33 @@ const NoCountries = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h3};
   margin: ${(props) => props.theme.space[3]};
 `;
-export const CountryList = ({ countryData }) => {
-  console.log(countryData[0]);
+export const CountryFlatList = ({ countryData }) => {
   return (
-    <CardList>
-      {countryData.length === 0 && (
+    <FlatList
+      numColumns={2}
+      ListEmptyComponent={
         <NoCountries>Sorry, nothing to see here...</NoCountries>
-      )}
-      {countryData.length > 0 &&
-        countryData.map((country, index) => {
-          return (
-            <SmallCard
-              key={index}
-              colors={country.countryColors}
-              cardSize={cardSize}
-            >
-              <Title colors={country.countryColors}>{country.name}</Title>
-              <Capital colors={country.countryColors}>
-                Capital: {country.capital}
-              </Capital>
-              <Spacer></Spacer>
-              <FlagContainer colors={country.countryColors}>
-                <Flag
-                  source={country.img}
-                  flagHeight={country.flagHeight}
-                  flagWidth={country.flagWidth}
-                />
-              </FlagContainer>
-            </SmallCard>
-          );
-        })}
-    </CardList>
+      }
+      data={countryData}
+      keyExtractor={(item) => item.alpha3Code}
+      renderItem={({ item }) => {
+        return (
+          <SmallCard colors={item.countryColors} cardSize={cardSize}>
+            <Title colors={item.countryColors}>{item.name}</Title>
+            <Capital colors={item.countryColors}>
+              Capital: {item.capital}
+            </Capital>
+            <Spacer></Spacer>
+            <FlagContainer colors={item.countryColors}>
+              <Flag
+                source={item.img}
+                flagHeight={item.flagHeight}
+                flagWidth={item.flagWidth}
+              />
+            </FlagContainer>
+          </SmallCard>
+        );
+      }}
+    />
   );
 };

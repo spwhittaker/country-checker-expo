@@ -1,5 +1,4 @@
-import { deburr } from "lodash";
-const countryData = [
+export const countryData = [
   {
     name: "Afghanistan",
     topLevelDomain: [".af"],
@@ -15872,25 +15871,3 @@ const countryData = [
     cioc: "ZIM",
   },
 ];
-
-const countryDataWithAllNames = countryData.map((country) => {
-  const allNames = [country.name];
-  if (country.altSpellings) {
-    allNames.push(...country.altSpellings);
-  }
-  if (country.alpha2Code) {
-    allNames.push(country.alpha2Code);
-  }
-  if (country.alpha3Code) {
-    allNames.push(country.alpha3Code);
-  }
-  if (country.capital) {
-    allNames.push(country.capital);
-  }
-
-  const deburredAllNames = allNames.map((e) => deburr(e).toLowerCase()).join();
-
-  return { ...country, deburredAllNames };
-});
-
-module.exports = countryDataWithAllNames;
