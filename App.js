@@ -7,6 +7,7 @@ import styled, { ThemeProvider } from "styled-components/native";
 import theme from "./src/infrastructure/theme/index";
 import { CountryFlatList } from "./src/Components/CountryFlatList";
 import { deburr } from "lodash";
+import { DetailedCountryInfo } from "./src/Components/DetailedCountryInfo";
 
 const StyledSafeArea = styled.SafeAreaView`
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
@@ -21,8 +22,16 @@ const SearchContainer = styled.View`
 export default function App() {
   const [countryData, setCountryData] = useState(countryDataWithAllNames);
   const [searchQuery, setSearchQuery] = useState("");
+  //TODO const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(countryData[0]);
   const onChangeSearch = (query) => {
     setSearchQuery(query);
+  };
+
+  const handleCountryPress = (alpha3Code) => {
+    setSelectedCountry(
+      countryData.find((country) => country.alpha3Code === alpha3Code)
+    );
   };
 
   useEffect(() => {
@@ -47,8 +56,13 @@ export default function App() {
             value={searchQuery}
           />
         </SearchContainer>
-
-        <CountryFlatList countryData={countryData} />
+        {selectedCountry && (
+          <DetailedCountryInfo selectedCountry={selectedCountry} />
+        )}
+        <CountryFlatList
+          countryData={countryData}
+          handleCountryPress={handleCountryPress}
+        />
       </StyledSafeArea>
     </ThemeProvider>
   );
