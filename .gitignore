@@ -1,6 +1,6 @@
 node_modules/
 .expo/
-assets/images/fullsize
+assets/images/fullsize/
 npm-debug.*
 *.jks
 *.p8

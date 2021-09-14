@@ -1,10 +1,7 @@
 import styled from "styled-components/native";
 import React from "react";
-import { View, Text, Image } from "react-native";
-import { Card } from "react-native-paper";
 import { Dimensions } from "react-native";
 import { cardSize } from "../countryDataTransform";
-import blah from "../../assets/images/afg.png";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
