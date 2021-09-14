@@ -29,6 +29,9 @@ export default function App() {
   };
 
   const handleCountryPress = (alpha3Code) => {
+    if (!alpha3Code) {
+      setSelectedCountry(null);
+    }
     setSelectedCountry(
       countryData.find((country) => country.alpha3Code === alpha3Code)
     );
@@ -57,7 +60,10 @@ export default function App() {
           />
         </SearchContainer>
         {selectedCountry && (
-          <DetailedCountryInfo selectedCountry={selectedCountry} />
+          <DetailedCountryInfo
+            selectedCountry={selectedCountry}
+            handleCountryPress={handleCountryPress}
+          />
         )}
         <CountryFlatList
           countryData={countryData}

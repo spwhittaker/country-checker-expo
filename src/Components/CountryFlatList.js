@@ -6,7 +6,12 @@ import { cardSize } from "../countryDataTransform";
 import { TouchableOpacity } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-
+// TODO Optimize this
+//   VirtualizedList: You have a large list that is slow to update - make sure your renderItem function renders components that follow React performance best practices like PureComponent, shouldComponentUpdate, etc. Object {
+//   "contentLength": 9350.302734375,
+//   "dt": 4824,
+//   "prevDt": 3678,
+// }
 const SmallCard = styled.View`
   border: ${(props) =>
       props.colors.DarkVibrant || props.theme.colors.ui.secondary}
@@ -32,11 +37,7 @@ const FlagContainer = styled.View`
   padding: 5px;
   background-color: ${(props) => props.colors.LightestMuted};
 `;
-const CardList = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
+
 const Title = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.body};
   color: ${(props) => props.colors.DarkMuted || props.theme.colors.bg.primary};
@@ -53,9 +54,16 @@ const NoCountries = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h3};
   margin: ${(props) => props.theme.space[3]};
 `;
+
+const StyledFlatList = styled.FlatList`
+  background-color: ${(props) => props.theme.colors.bg.tertiary};
+`;
 export const CountryFlatList = ({ countryData, handleCountryPress }) => {
   return (
-    <FlatList
+    <StyledFlatList
+      contentContainerStyle={{
+        backGroundColor: `${(props) => props.theme.colors.bg.tertiary}`,
+      }}
       numColumns={2}
       ListEmptyComponent={
         <NoCountries>Sorry, nothing to see here...</NoCountries>

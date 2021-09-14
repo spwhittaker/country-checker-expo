@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
 const Spacer = styled.View`
   padding: 5px;
@@ -64,7 +64,12 @@ const Name = styled.Text`
   flex-grow: 0;
 `;
 
-export const DetailedCountryInfo = ({ selectedCountry }) => {
+const Button = styled.Button``;
+
+export const DetailedCountryInfo = ({
+  selectedCountry,
+  handleCountryPress,
+}) => {
   const {
     name = "blah",
     capital = "blahtown",
@@ -132,6 +137,9 @@ export const DetailedCountryInfo = ({ selectedCountry }) => {
           </OtherNames>
         </NamesBox>
       )}
+      <TouchableOpacity>
+        <Button title='Close' onPress={() => handleCountryPress("")}></Button>
+      </TouchableOpacity>
     </CountryInfo>
   );
 };
