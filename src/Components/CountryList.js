@@ -55,6 +55,7 @@ const NoCountries = styled.Text`
   margin: ${(props) => props.theme.space[3]};
 `;
 export const CountryList = ({ countryData }) => {
+  console.log(countryData[0]);
   return (
     <CardList>
       {countryData.length === 0 && (

@@ -13,6 +13,7 @@ import { Searchbar } from "react-native-paper";
 import styled, { ThemeProvider } from "styled-components/native";
 import theme from "./src/infrastructure/theme/index";
 import { CountryList } from "./src/Components/CountryList";
+import { CountryFlatList } from "./src/Components/CountryFlatList";
 import { deburr } from "lodash";
 
 const StyledSafeArea = styled.SafeAreaView`
@@ -55,9 +56,10 @@ export default function App() {
           />
         </SearchContainer>
         {/* TODO Change this to FlatList */}
-        <ScrollView>
+        {/*         <ScrollView>
           <CountryList countryData={countryData}></CountryList>
-        </ScrollView>
+        </ScrollView> */}
+        <CountryFlatList countryData={countryData} />
       </StyledSafeArea>
     </ThemeProvider>
   );
